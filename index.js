@@ -1,7 +1,29 @@
 import { shoppingItems } from "./shoppingData.js"
 const body = document.getElementById("body")
 const container = document.getElementById("container")
+const addOne = document.getElementById("addOne")
+const removeOne = document.getElementById("removeOne")
+const quantity = document.getElementById("quantity")
+const buyBtn = document.getElementById("buy-btn")
+let amount = 0
 
+addOne.addEventListener("click", function(){
+    amount ++
+    quantity.innerHTML = amount
+    if(amount > 0){
+        buyBtn.disabled = false
+    }
+})
+
+removeOne.addEventListener("click", function(){
+    if(amount !== 0){
+        amount --
+        quantity.innerHTML = amount
+    }
+    if(amount === 0){
+        buyBtn.disabled = true
+    }
+})
 
 function renderProducts(products) {
     let html = ""

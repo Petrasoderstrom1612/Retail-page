@@ -41,7 +41,7 @@ h4{
     box-shadow: 1px 1px 5px 2px #bae6fd;
 }
 
-button{
+/* button{
     padding: 10px 15px;
     border-radius: 5px;
     border: none;
@@ -50,12 +50,12 @@ button{
     cursor: pointer;
     text-transform: uppercase;
     font-weight: bold;
-}
+} */
 
-button:hover{
+/* button:hover{
     color: #38bdf8;
     background-color: #f0f9ff;
-}
+} */
 
 img{
     width: 150px;
