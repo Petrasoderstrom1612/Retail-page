@@ -67,3 +67,8 @@ img{
     display: flex;
     gap: 5px
 }
+
+img{
+    width:150px;
+    height:157px;
+}
