@@ -72,3 +72,14 @@ img{
     width:150px;
     height:157px;
 }
+
+.checkout-price{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    margin: 0px;
+}
+
+.message-to-buyer{
+    text-align: center;
+}
