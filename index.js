@@ -1,7 +1,7 @@
 import { shoppingItems } from "./shoppingData.js";
 const container = document.getElementById("container");
 const messageToBuyer = document.getElementById("message-to-buyer")
-let amount = 0;
+const checkoutPrice = document.getElementById("checkout-price")
 
 function renderProducts(products) {
   let html = "";
@@ -41,6 +41,7 @@ function addEventListeners(product) {
     product.amount++;
     productPrice.innerHTML = "$" + product.price * product.amount
     quantity.innerHTML = product.amount;
+    calculateTotal(shoppingItems)
     if (product.amount > 0) {
       buyBtn.disabled = false;
     }
@@ -51,6 +52,7 @@ function addEventListeners(product) {
       product.amount--;
       productPrice.innerHTML = "$" + product.price * product.amount
       quantity.innerHTML = product.amount;
+      calculateTotal(shoppingItems)
     }
     if (product.amount === 0) {
       buyBtn.disabled = true;
@@ -64,4 +66,13 @@ function addEventListeners(product) {
     },1500)
   });
     
+}
+
+function calculateTotal(products){
+  let total = 0;
+  for (let product of products){
+    total += product.price * product.amount
+  }
+  console.log(total)
+  checkoutPrice.textContent =`Total $${total}`
 }
