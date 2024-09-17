@@ -83,3 +83,7 @@ img{
 .message-to-buyer{
     text-align: center;
 }
+
+.clicked-bkg{
+    background-color: rgba(163, 166, 170, 0.527);
+}

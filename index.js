@@ -12,7 +12,7 @@ function renderProducts(products) {
             <h1>${product.name.toUpperCase()}</h1>
             <h2 id="${product.price}-price">$${product.price}</h2>
             <img alt=${product.name} src="./${product.img}"/>
-            <div>
+            <div id="${product.name}-buttons">
                 <button id="${product.name}-removeOne">-</button>
                 <button id="${product.name}-addOne">+</button>
             </div>
@@ -36,7 +36,11 @@ function addEventListeners(product) {
   const quantity = document.getElementById(`${product.name}-quantity`);
   const buyBtn = document.getElementById(`${product.name}-btn`);
   const productPrice = document.getElementById(`${product.price}-price`)
-
+  const productButtons = document.getElementById(`${product.name}-btn`)
+  productButtons.addEventListener("click", function(e){
+    document.getElementById(e.target.id).parentElement.classList.add("clicked-bkg")
+  })
+  
   addOne.addEventListener("click", function () {
     product.amount++;
     productPrice.innerHTML = "$" + product.price * product.amount
@@ -47,15 +51,17 @@ function addEventListeners(product) {
     }
   });
   
-  removeOne.addEventListener("click", function () {
+  removeOne.addEventListener("click", function (e) {
     if (product.amount !== 0) {
       product.amount--;
       productPrice.innerHTML = "$" + product.price * product.amount
       quantity.innerHTML = product.amount;
       calculateTotal(shoppingItems)
     }
+    
     if (product.amount === 0) {
       buyBtn.disabled = true;
+      document.getElementById(e.target.id).closest('.product').classList.remove("clicked-bkg")
     }
   });
   
