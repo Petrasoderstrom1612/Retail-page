@@ -41,6 +41,7 @@ h4{
     box-shadow: 1px 1px 5px 2px #bae6fd;
 }
 
+
 /* button{
     padding: 10px 15px;
     border-radius: 5px;
@@ -86,4 +87,10 @@ img{
 
 .clicked-bkg{
     background-color: rgba(163, 166, 170, 0.527);
+}
+
+.bin-btn{
+    position: absolute;
+    right: 35px;
+    top: 65px;
 }
