@@ -11,14 +11,14 @@ function renderProducts(products) {
     html += `
         <div class="product" id="${product.name}">
             <h1>${product.name.toUpperCase()}</h1>
-            <h2 id="${product.price}-price">$${product.price}</h2>
+            <h2>Price <br><br> $${product.price}</h2>
             <img alt=${product.name} src="./${product.img}"/>
             <div id="${product.name}-buttons">
-                <button id="${product.name}-removeOne">-</button>
-                <button id="${product.name}-addOne">+</button>
+            <button id="${product.name}-removeOne" disabled>-</button>
+            <button id="${product.name}-addOne">+</button>
             </div>
             <p>Quantity: <span id="${product.name}-quantity">0</span></p>
-            <button  id="${product.name}-btn" disabled>BUY</button>
+            <p id="${product.price}-price" class="total-per-article"></p>
         </div>
         `;
   }
@@ -44,44 +44,49 @@ function addEventListeners(product) {
   const addOne = document.getElementById(`${product.name}-addOne`);
   const removeOne = document.getElementById(`${product.name}-removeOne`);
   const quantity = document.getElementById(`${product.name}-quantity`);
-  const buyBtn = document.getElementById(`${product.name}-btn`);
+  // const buyBtn = document.getElementById(`${product.name}-btn`);
   const productPrice = document.getElementById(`${product.price}-price`)
-  const productButtons = document.getElementById(`${product.name}-btn`)
+  const productButtons = document.getElementById(`${product.name}-addOne`)
   productButtons.addEventListener("click", function(e){
-    document.getElementById(e.target.id).parentElement.classList.add("clicked-bkg")
+    document.getElementById(e.target.id).closest('.product').classList.add("clicked-bkg")
   })
   
-  addOne.addEventListener("click", function () {
+  addOne.addEventListener("click", function (e) {
     product.amount++;
-    productPrice.innerHTML = "$" + product.price * product.amount
+    productPrice.innerHTML = "Total: $" + product.price * product.amount
     quantity.innerHTML = product.amount;
     calculateTotal(shoppingItems)
     if (product.amount > 0) {
-      buyBtn.disabled = false;
+      removeOne.disabled = false;
     }
-  });
-  
-  removeOne.addEventListener("click", function (e) {
-    if (product.amount !== 0) {
-      product.amount--;
-      productPrice.innerHTML = "$" + product.price * product.amount
-      quantity.innerHTML = product.amount;
-      calculateTotal(shoppingItems)
-    }
-    
-    if (product.amount === 0) {
-      buyBtn.disabled = true;
-      document.getElementById(e.target.id).closest('.product').classList.remove("clicked-bkg")
-    }
-  });
-  
-  buyBtn.addEventListener("click", function (e) {
     messageToBuyer.innerHTML = `${e.target.parentElement.id.charAt(0).toUpperCase() + e.target.parentElement.id.slice(1)} added to the shopping cart.`
     setTimeout(function(){
       messageToBuyer.innerHTML = ""
     },1500)
     emptyCart.innerHTML = `<button id="clear-all">EMPTY CART</button>`
   });
+  
+  removeOne.addEventListener("click", function (e) {
+    if (product.amount !== 0) {
+      product.amount--;
+      productPrice.innerHTML = "Total: $" + product.price * product.amount
+      quantity.innerHTML = product.amount;
+      calculateTotal(shoppingItems)
+    }
+    
+    if (product.amount === 0) {
+      removeOne.disabled = true;
+      document.getElementById(e.target.id).closest('.product').classList.remove("clicked-bkg")
+    }
+  });
+  
+
+  emptyCart.addEventListener("click",function(){
+    quantity.innerHTML = 0
+    productPrice.innerHTML = ""
+    removeOne.disabled = true;
+    calculateTotal(products)
+  })
     
 }
 
