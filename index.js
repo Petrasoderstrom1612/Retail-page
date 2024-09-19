@@ -2,6 +2,7 @@ import { shoppingItems } from "./shoppingData.js";
 const container = document.getElementById("container");
 const messageToBuyer = document.getElementById("message-to-buyer")
 const checkoutPrice = document.getElementById("checkout-price")
+const emptyCart = document.getElementById("empty-cart")
 
 function renderProducts(products) {
   let html = "";
@@ -23,6 +24,15 @@ function renderProducts(products) {
   }
 
   container.innerHTML = html;
+
+  emptyCart.addEventListener("click", function(){
+    const productsCollection = document.getElementsByClassName("product")
+    console.log(productsCollection)
+    for (let markedProduct of productsCollection){
+      markedProduct.classList.remove("clicked-bkg")
+    }
+  })
+
   for (let product of products) {
     addEventListeners(product);
   }
@@ -70,6 +80,7 @@ function addEventListeners(product) {
     setTimeout(function(){
       messageToBuyer.innerHTML = ""
     },1500)
+    emptyCart.innerHTML = `<button id="clear-all">EMPTY CART</button>`
   });
     
 }

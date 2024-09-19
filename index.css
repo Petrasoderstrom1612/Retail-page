@@ -89,8 +89,10 @@ img{
     background-color: rgba(163, 166, 170, 0.527);
 }
 
-.bin-btn{
+
+.empty-cart{
     position: absolute;
     right: 35px;
     top: 65px;
+
 }
