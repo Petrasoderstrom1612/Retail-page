@@ -26,13 +26,9 @@ function renderProducts(products) {
   container.innerHTML = html;
 
   emptyCart.addEventListener("click", function(){
-    const productsCollection = document.getElementsByClassName("product")
-    console.log(productsCollection)
-    for (let markedProduct of productsCollection){
-      markedProduct.classList.remove("clicked-bkg")
-    }
+    resetCart(products)
   })
-
+  
   for (let product of products) {
     addEventListeners(product);
   }
@@ -44,7 +40,6 @@ function addEventListeners(product) {
   const addOne = document.getElementById(`${product.name}-addOne`);
   const removeOne = document.getElementById(`${product.name}-removeOne`);
   const quantity = document.getElementById(`${product.name}-quantity`);
-  // const buyBtn = document.getElementById(`${product.name}-btn`);
   const productPrice = document.getElementById(`${product.price}-price`)
   const productButtons = document.getElementById(`${product.name}-addOne`)
   productButtons.addEventListener("click", function(e){
@@ -52,6 +47,7 @@ function addEventListeners(product) {
   })
   
   addOne.addEventListener("click", function (e) {
+    emptyCart.innerHTML = `<button id="clear-all">EMPTY CART</button>`
     product.amount++;
     productPrice.innerHTML = "Total: $" + product.price * product.amount
     quantity.innerHTML = product.amount;
@@ -63,7 +59,6 @@ function addEventListeners(product) {
     setTimeout(function(){
       messageToBuyer.innerHTML = ""
     },1500)
-    emptyCart.innerHTML = `<button id="clear-all">EMPTY CART</button>`
   });
   
   removeOne.addEventListener("click", function (e) {
@@ -80,14 +75,7 @@ function addEventListeners(product) {
     }
   });
   
-
-  emptyCart.addEventListener("click",function(){
-    quantity.innerHTML = 0
-    productPrice.innerHTML = ""
-    removeOne.disabled = true;
-    calculateTotal(products)
-  })
-    
+  
 }
 
 function calculateTotal(products){
@@ -97,4 +85,21 @@ function calculateTotal(products){
   }
   console.log(total)
   checkoutPrice.textContent =`Total $${total}`
+  console.log(productPrice.innerHTML)
+}
+
+function resetCart(products){
+  const productsCollection = document.getElementsByClassName("product")
+  for (let markedProduct of productsCollection){
+    markedProduct.classList.remove("clicked-bkg")
+  }
+  
+  for (let product of products) {
+    const quantity = document.getElementById(`${product.name}-quantity`);
+    const productPrice = document.getElementById(`${product.price}-price`)
+    product.amount = 0;
+    productPrice.innerHTML = ""
+    quantity.innerHTML = 0
+    checkoutPrice.textContent =`Total $0`
+  }
 }
